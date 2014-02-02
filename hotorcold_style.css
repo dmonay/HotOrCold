@@ -1,7 +1,38 @@
-div {
-    width:100px;
-    height:50px;
-    background-color:#9696f0;
-    border: 1px solid black;
-    margin: 10px;
+body {
+    width:100%;
+    height: 100%;
+    background-color:#8cf7eb;
+    background-image: url(textures/lined.png);
+    background-repeat:repeat; 
+    padding:0;
+    margin:0;
+    font-family: 'Nixie One', cursive;
+    color:#d3d1d1;
+}
+
+#wrap{
+    text-align:center;
+    width:500px;
+    height:200px;
+    margin: 90px auto;
+    background-color:black;
+    border-radius:50px;
+}
+
+.cold{ background-color:#8cb9f7;}
+
+.warm{ background-color:#f7948c;}
+
+.fire{ background-color:#f2361d;}
+
+.soclose{ background-color:#f00;}
+
+.lost{ background-color:#7b6b27;}
+
+.celebrate {
+    background: url(celebrate2.jpg) no-repeat center center fixed; 
+    -webkit-background-size:  cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:  cover;
 }

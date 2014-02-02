@@ -6,24 +6,21 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="hotorcold.js"></script>
 	<link rel="stylesheet" type="text/css" href="hotorcold_style.css">
+    <link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	
-    <h1>Guess that number</h1>
- 
-    <form>
-        <input id="guess"/>
-        <input type="submit" id="submit" value="guess"/>
-        <input type="submit" id="display" value="display"/>
-        <input type="submit" id="new" value="new game"/> 
-    </form>
+	<div id="wrap">
+        <h1>Guess that number</h1>
+ <h3>You have 10 tries</h3>
+        <form>
+            <input id="guess"/>
+            <input type="submit" id="submit" value="guess" maxlength="3"/>
+            <input type="submit" id="new" value="new game"/> 
+        </form>
     
-
-    
-    
-    <p class="output"></p><br>
-    <p class="test"></p><br>
-    <p>Number of tries:<span id="numTries"></span></p>
- 
+        <p class="output"></p>
+        <p class="test"></p>
+        <p>Number of tries:&nbsp;<span id="numTries"></span></p>
+    </div>
 </body>
 </html>

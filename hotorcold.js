@@ -4,12 +4,14 @@
 var randomNum = Math.floor(Math.random()*101);
 var listOfGuesses = [];
 
+
 $(document).ready(function(){
 
 
     var generate = function() {
         randomNum = Math.floor(Math.random()*101);
-        $(".test").html(randomNum);
+        listOfGuesses.length = 0;
+        input.value = "";
         return false;
     };
 
@@ -17,80 +19,86 @@ $(document).ready(function(){
     
     
     var evaluate = function() {
-        var lastGuess = listOfGuesses[listOfGuesses.length - 1];
-        var previousGuess = listOfGuesses[listOfGuesses.length - 2];
-        if (isNaN(lastGuess)) {$('.output').html("come on");}
-        else if (lastGuess === randomNum) {$(".output").html("You got it!");}
-        else if (listOfGuesses.length === 1) {
-            if ((Math.abs(lastGuess - randomNum) < 20)) {$('.output').html("Lukewarm");}
-            else if ((Math.abs(lastGuess - randomNum) < 10)) {$('.output').html("Fire");}
-            else {$('.output').html("New Ice Age");}
+        var numGuesses = listOfGuesses.length;
+        if(numGuesses > 10) {
+           $('.output').html("You lost. Dust yourself off and try again, try again.");
+            $('body').removeClass();
+            $('body').addClass("lost");
+            $(".test").html("the answer is " +randomNum);
+           return;
         }
-        else if (1 > listOfGuesses.length > 10) {
-            if ((Math.abs(lastGuess - randomNum) < Math.abs(previousGuess - randomNum))) {$('.output').html("Getting warmer");}
-            else {$('.output').html("Getting colder");}}
-        else  {$('.output').html("You lost. Dust yourself off and try again, try again.");}
-        return false;
+        else {
+            var lastGuess = listOfGuesses[listOfGuesses.length - 1];
+            if (lastGuess === randomNum) {
+                $(".output").html("You got it!");
+                $('body').removeClass();
+                $('body').addClass("celebrate");
+                return;
+            }
+            if(numGuesses == 1) {
+                var check = Math.abs(lastGuess - randomNum);
+                if(check < 10) {
+                    $('.output').html("Fire");
+                    $('body').addClass("fire");
+                }
+                else if(check > 10 && check < 20) {
+                    $('.output').html("Lukewarm");
+                    $('body').addClass("warm");
+                }
+                else {
+                    $('.output').html("New Ice Age");
+                    $('body').addClass("cold");
+                }
+            }
+            else {
+                var previousGuess = listOfGuesses[listOfGuesses.length - 2];
+                var lastCheck = Math.abs(lastGuess - randomNum);
+                var prevCheck = Math.abs(previousGuess - randomNum);
+                if(lastCheck < prevCheck) {
+                    if (lastCheck < 5) {$('.output').html("You're so close!");
+                                        $('body').removeClass();
+                                        $('body').addClass("soclose");
+                                       }
+                    else {$('.output').html("Getting warmer");
+                          $('body').removeClass();
+                          $('body').addClass("warm");
+                         }
+                }
+                else {
+                    $('.output').html("Getting colder");
+                    $('body').removeClass();
+                    $('body').addClass("cold");
+                }
+            }
+        }
     };
 
     var displayTries = function() {
-        var numberOfTries = listOfGuesses.length + 1;
-        $('.numTries').html(numberOfTries);
+        var numberOfTries = listOfGuesses.length;
+        $('#numTries').html(numberOfTries);
         return false;
     };
     
     var stupefy = function() {
-        var result = parseInt($("#guess").val());
+        var number = $("#guess").val();
+        if(isNaN(number)) {
+          alert("The entry '"+number+"' is not a number");
+          return false;
+        }
+        if(number>100 || number<1){
+          alert("Enter a number between 1 and 100!");
+          return false;
+        }
+        var result = parseInt(number);
+        
         listOfGuesses.push(result);
-        displayTries;
-        evaluate;
+        displayTries();
+        evaluate();
         return false;
     };    
-    
- /*   var firstGuess = function() {
-        if ((Math.abs(lastGuess - randomNum) < 20)) {$('.output').html("Lukewarm");}
-        else if ((Math.abs(lastGuess - randomNum) < 10)) {$('.output').html("Fire");}
-        else ((Math.abs(lastGuess - randomNum) < 20)) {$('.output').html("New Ice Age");}
-    }
-    
-    var middleGuess = function() {
-        if ((Math.abs(lastGuess - randomNum) < Math.abs(previousGuess - randomNum))) {$('.output').html("Getting warmer");}
-        else ((Math.abs(lastGuess - randomNum) > Math.abs(previousGuess - randomNum))) {$('.output').html("Getting colder");}        
-    }
-    
-  */  
-    
-    
-    
-    
-    
-    
-    
-    
-        /*    if (result === randomNum) {
-           
-            $(".output").html("You got it!");
-        }
-    
-        else if (Math.abs(result - randomNum) < 20) { $('.output').html("getting warmer");}
-        else if (Math.abs(result - randomNum) > 20) { $('.output').html("getting colder");}
-        else {
-            $('.output').html("not even close");
-        }
-        return false; */
-    
-    
-    
-    
-    var show = function() {
-        $(".test").html(randomNum);
-        return false;
-    };
-    
 
     
     $('#submit').click(stupefy);
-    $('#display').click(show);
     $('#new').click(generate);
     
 });
