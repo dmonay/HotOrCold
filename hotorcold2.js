@@ -24,7 +24,7 @@ $(document).ready(function(){
     var evaluate = function() {
         
         counter++;
-        currValue = $("#guess").val();
+        currValue = parseInt($("#guess").val());
 
         if (counter >= 10) { 
             $('.output').html("You lost. Dust yourself off and try again, try again.");
@@ -89,7 +89,7 @@ $(document).ready(function(){
     };
     
     var stupefy = function() {
-        var number = $("#guess").val();
+        var number = parseInt($("#guess").val());
         if(isNaN(number)) {
           alert("The entry '"+number+"' is not a number");
           return false;
